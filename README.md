@@ -50,7 +50,11 @@ In \database\seeders you can find the seeders of the project (the seeders are th
 ## When creating new model, controller, migration, seeder we use the command: 
 php artisan make:model ModelName -a
     -a is used to create the model, controller, migration, seeder at once.
-## When creating new controller we use the command: php artisan make:controller ControllerName
-## When creating new migration we use the command: php artisan make:migration migration_name
-## When creating new seeder we use the command: php artisan make:seeder seeder_name
-## When creating new model we use the command: php artisan make:model model_name
+## When creating new controller we use the command: 
+ php artisan make:controller ControllerName
+## When creating new migration we use the command: 
+ php artisan make:migration migration_name
+## When creating new seeder we use the command:
+ php artisan make:seeder seeder_name
+## When creating new model we use the command:
+ php artisan make:model model_name
