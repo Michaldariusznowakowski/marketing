@@ -29,13 +29,17 @@ composer update
 php artisan serve --port=4433 or go to public folder and run the command: php -S localhost:4433
 
 ## Structure of the project
-In \routes\web.php you can find the routes of the project there you will find the routes for the pages and the links to the controllers.
-In \app\Http\Controllers you can find the controllers of the project that are responsible for the logic of the project.
-In \app\Models you can find the models of the project (the models are the tables of the database).
-In \resources\views you can find the views of the project (the views are the pages of the project, the html with blade).
-Views with _ are the partials of the project (the partials are the html that is used in more than one page) and this views are not loaded directly.
-IN \database\migrations you can find the migrations of the project (the migrations are the files that create the tables of the database).
-In \database\seeders you can find the seeders of the project (the seeders are the files that populate the tables of the database).
+    In \routes\web.php you can find the routes of the project there you will find the routes for the pages and the links to the controllers.
+
+    In \app\Http\Controllers you can find the controllers of the project that are responsible for the logic of the project.
+    In \app\Models you can find the models of the project (the models are the tables of the database).
+
+    In \resources\views you can find the views of the project (the views are the pages of the project, the html with blade).
+    Views with _ are the partials of the project (the partials are the html that is used in more than one page) and this views are not loaded directly.
+
+    IN \database\migrations you can find the migrations of the project (the migrations are the files that create the tables of the database).
+    
+    In \database\seeders you can find the seeders of the project (the seeders are the files that populate the tables of the database).
 
 ## Views
 # @extends(_show) 
