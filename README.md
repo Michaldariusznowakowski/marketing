@@ -17,12 +17,16 @@
     extension=pdo_sqlite
     extension=zip
 ### 3. Open the cmd and go to the project folder
-### 4. Run the command: composer install
-### 5. Run the command: composer update
-### 6. Copy the .env.example to .env
-### 7. Seed the database with the command: php artisan migrate:fresh --seed
-### 8. Run the command: php artisan serve
-### 9. To start the server use the command: php artisan serve --port=4433 or go to public folder and run the command: php -S localhost:4433
+### 4. Run the command: 
+composer install
+### 5. Run the command: 
+composer update
+### 6. Copy the 
+.env.example to .env
+### 7. Seed the database with the command:
+ php artisan migrate:fresh --seed
+### 8. To start the server use the command: 
+php artisan serve --port=4433 or go to public folder and run the command: php -S localhost:4433
 
 ## Structure of the project
 In \routes\web.php you can find the routes of the project there you will find the routes for the pages and the links to the controllers.
@@ -43,7 +47,8 @@ In \database\seeders you can find the seeders of the project (the seeders are th
 #  {{ route('route_name') }}
     This is used to print the route in the html. from the controller to the view.
 
-## When creating new model, controller, migration, seeder we use the command: php artisan make:model ModelName -a
+## When creating new model, controller, migration, seeder we use the command: 
+php artisan make:model ModelName -a
     -a is used to create the model, controller, migration, seeder at once.
 ## When creating new controller we use the command: php artisan make:controller ControllerName
 ## When creating new migration we use the command: php artisan make:migration migration_name
