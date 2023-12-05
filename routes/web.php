@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CoffeeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CookieController;
+use App\Http\Controllers\ImportCsvController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,3 +30,6 @@ Route::get('/shop/orders', [OrderController::class, 'index'])->name('orders');
 Route::post('/shop/orders/purge', [OrderController::class, 'purge'])->name('purgeOrders');
 Route::get('/cookies/allow', [CookieController::class, 'allow'])->name('cookiesAllow');
 Route::get('/cookies/disallow', [CookieController::class, 'disallow'])->name('cookiesDisallow');
+Route::get('/importcsv', [ImportCsvController::class, 'show'])->name('import_csv');
+Route::post('/importcsv', [ImportCsvController::class, 'import'])->name('import_csv');
+Route::post('/importcsv/cols', [ImportCsvController::class, 'importWithCols'])->name('import_csv_cols');
