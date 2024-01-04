@@ -22,6 +22,9 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return view('about');
 })->name('about');
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
 Route::get('/shop', [CoffeeController::class, 'show'])->name('shop');
 Route::get('/shop/add-to-cart/{coffeeId}', [CoffeeController::class, 'addToCart'])->name('addToCart');
 Route::post('/shop/checkout', [OrderController::class, 'checkout'])->name('checkout');
