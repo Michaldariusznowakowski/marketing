@@ -24,6 +24,9 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return view('about');
 })->name('about');
+Route::get('/cart', function () {
+    return view('cart');
+})->name('cart');
 Route::get('/contact', [ContactController::class, 'show'])->name('contact');
 Route::post('/contact', [ContactController::class, 'send']);
 Route::get('/shop', [CoffeeController::class, 'show'])->name('shop');
