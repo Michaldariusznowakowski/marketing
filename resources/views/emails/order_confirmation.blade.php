@@ -1,5 +1,3 @@
-<!-- resources/views/emails/order_confirmation.blade.php -->
-
 <!DOCTYPE html>
 <html lang="en">
 

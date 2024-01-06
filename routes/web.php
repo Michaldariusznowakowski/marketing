@@ -5,6 +5,8 @@ use App\Http\Controllers\CoffeeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CookieController;
 use App\Http\Controllers\ImportCsvController;
+use App\Http\Controllers\ContactController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,9 +24,8 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return view('about');
 })->name('about');
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
+Route::get('/contact', [ContactController::class, 'show'])->name('contact');
+Route::post('/contact', [ContactController::class, 'send']);
 Route::get('/shop', [CoffeeController::class, 'show'])->name('shop');
 Route::get('/shop/add-to-cart/{coffeeId}', [CoffeeController::class, 'addToCart'])->name('addToCart');
 Route::post('/shop/checkout', [OrderController::class, 'checkout'])->name('checkout');
