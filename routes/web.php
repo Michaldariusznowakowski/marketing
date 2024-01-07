@@ -28,6 +28,7 @@ Route::get('/cart', [CartController::class, 'show'])->name('cart');
 Route::get('/contact', [ContactController::class, 'show'])->name('contact');
 Route::post('/contact', [ContactController::class, 'send']);
 Route::get('/shop', [ShopController::class, 'show'])->name('shop');
+Route::get('/shop/{coffeeId}', [ShopController::class, 'showProduct'])->name('product');
 Route::get('/cart/add-to-cart/{coffeeId}', [CartController::class, 'addToCart'])->name('addToCart');
 Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('checkout');
 Route::get('/cart/remove-from-cart/{coffeeId}', [CartController::class, 'removeFromCart'])->name('removeFromCart');

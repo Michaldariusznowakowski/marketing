@@ -44,13 +44,20 @@
 @section('content')
     <div class="mt-10">
         @if (session('success'))
-            <div class="w-full">
-                <strong>{{ session('success') }}</strong>
+            <div class="flex w-full justify-center">
+                <div
+                    class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative w-3/6 text-center"
+                    role="alert">
+                    <strong class="font-bold">{{ session('success') }}</strong>
+                </div>
             </div>
         @endif
         @if (session('error'))
-            <div class="w-full">
-                <strong>{{ session('error') }}</strong>
+            <div class="flex w-full justify-center">
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative w-3/6 text-center"
+                     role="alert">
+                    <strong class="font-bold">{{ session('error') }}</strong>
+                </div>
             </div>
         @endif
         <h2 class="mb-10 mt-4 text-4xl w-full text-center tracking-tight font-extrabold text-gray-900">Nasza oferta</h2>
@@ -61,10 +68,10 @@
                 <div class="inline-grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     @foreach ($coffees as $coffee)
                         <div class="bg-white border border-gray-200 rounded-lg shadow overflow-hidden flex flex-col">
-                            <a href="{{ route('about') }}" class="flex flex-col">
+                            <a href="{{ route('product', ['coffeeId' => $coffee->id]) }}" class="flex flex-col">
                                 <div class="relative h-72 overflow-hidden">
                                     <img class="absolute inset-0 w-full h-full object-cover" src="{{ $coffee->img }}"
-                                        alt="{{ $coffee->nazwa }}" />
+                                         alt="{{ $coffee->nazwa }}"/>
                                 </div>
                                 <div class="flex flex-col justify-center flex-1 p-2 text-center">
                                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{ $coffee->nazwa }}
@@ -74,7 +81,7 @@
                                         obniżką: {{ $coffee->cena }} zł</p>
                                     <div class="text-center">
                                         <a href="{{ route('addToCart', ['coffeeId' => $coffee->id]) }}"
-                                            class="mt-4 inline-flex px-3 py-2 text-sm font-medium text-white bg-orange-700 rounded-lg
+                                           class="mt-4 inline-flex px-3 py-2 text-sm font-medium text-white bg-orange-700 rounded-lg
                                hover:bg-orange-800">
                                             Do koszyka
                                         </a>

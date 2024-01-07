@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Mail\OrderConfirmationMail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
@@ -75,13 +76,20 @@ class CartController extends Controller
             return redirect()->route('shop')->with('error', 'Produkt nie istnieje.');
         }
 
+        $urlPattern = '/shop\/[0-9]+/';
+        $currentUrl = url()->previous();
+
         $cart = $request->session()->get('cart', []);
         // Jeśli produkt istnieje w koszyku, zwiększ jego ilość
         if (isset($cart[$coffee->id])) {
             $cart[$coffee->id]['ilosc']++;
             $request->session()->put('cart', $cart);
 
-            return redirect()->route('shop')->with('success', 'Produkt dodany do koszyka.');
+            if (preg_match($urlPattern, $currentUrl)) {
+                return redirect()->route('product', ['coffeeId' => $coffee->id])->with('success', 'Produkt dodany do koszyka.');
+            } else {
+                return redirect()->route('shop')->with('success', 'Produkt dodany do koszyka.');
+            }
         }
         // Dodaj produkt do koszyka
         $cart[$coffee->id] = [
@@ -95,7 +103,12 @@ class CartController extends Controller
 
         $request->session()->put('cart', $cart);
 
-        return redirect()->route('shop')->with('success', 'Produkt dodany do koszyka.');
+        if (preg_match($urlPattern, $currentUrl)) {
+            return redirect()->route('product', ['coffeeId' => $coffee->id])->with('success', 'Produkt dodany do koszyka.');
+        } else {
+            return redirect()->route('shop')->with('success', 'Produkt dodany do koszyka.');
+        }
+
     }
     public function increment(Request $request, $coffeeId)
     {
