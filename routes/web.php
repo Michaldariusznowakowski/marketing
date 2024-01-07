@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CoffeeController;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CookieController;
 use App\Http\Controllers\ImportCsvController;
 use App\Http\Controllers\ContactController;
@@ -24,17 +24,15 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return view('about');
 })->name('about');
-Route::get('/cart', function () {
-    return view('cart');
-})->name('cart');
+Route::get('/cart', [CartController::class, 'show'])->name('cart');
 Route::get('/contact', [ContactController::class, 'show'])->name('contact');
 Route::post('/contact', [ContactController::class, 'send']);
-Route::get('/shop', [CoffeeController::class, 'show'])->name('shop');
-Route::get('/shop/add-to-cart/{coffeeId}', [CoffeeController::class, 'addToCart'])->name('addToCart');
-Route::post('/shop/checkout', [OrderController::class, 'checkout'])->name('checkout');
-Route::get('/shop/remove-from-cart/{coffeeId}', [CoffeeController::class, 'removeFromCart'])->name('removeFromCart');
-Route::get('/shop/orders', [OrderController::class, 'index'])->name('orders');
-Route::post('/shop/orders/purge', [OrderController::class, 'purge'])->name('purgeOrders');
+Route::get('/shop', [ShopController::class, 'show'])->name('shop');
+Route::get('/cart/add-to-cart/{coffeeId}', [CartController::class, 'addToCart'])->name('addToCart');
+Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('checkout');
+Route::get('/cart/remove-from-cart/{coffeeId}', [CartController::class, 'removeFromCart'])->name('removeFromCart');
+Route::get('/cart/orders', [CartController::class, 'index'])->name('orders');
+Route::post('/cart/orders/purge', [CartController::class, 'purge'])->name('purgeOrders');
 Route::get('/cookies/allow', [CookieController::class, 'allow'])->name('cookiesAllow');
 Route::get('/cookies/disallow', [CookieController::class, 'disallow'])->name('cookiesDisallow');
 Route::get('/importcsv', [ImportCsvController::class, 'show'])->name('import_csv');
