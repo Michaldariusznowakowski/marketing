@@ -152,4 +152,9 @@ class CartController extends Controller
         $status = Mail::send(new OrderConfirmationMail($order));
         return $status;
     }
+    public function showOrders()
+    {
+        $orders = Order::all();
+        return view('orders', compact('orders'));
+    }
 }
