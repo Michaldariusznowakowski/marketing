@@ -31,6 +31,8 @@ Route::get('/shop', [ShopController::class, 'show'])->name('shop');
 Route::get('/cart/add-to-cart/{coffeeId}', [CartController::class, 'addToCart'])->name('addToCart');
 Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('checkout');
 Route::get('/cart/remove-from-cart/{coffeeId}', [CartController::class, 'removeFromCart'])->name('removeFromCart');
+Route::get('/cart/increment/{coffeeId}', [CartController::class, 'increment'])->name('incrementCart');
+Route::get('/cart/decrement/{coffeeId}', [CartController::class, 'decrement'])->name('decrementCart');
 Route::get('/cart/orders', [CartController::class, 'index'])->name('orders');
 Route::post('/cart/orders/purge', [CartController::class, 'purge'])->name('purgeOrders');
 Route::get('/cookies/allow', [CookieController::class, 'allow'])->name('cookiesAllow');

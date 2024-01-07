@@ -38,9 +38,9 @@ class CartController extends Controller
             return redirect()->route('shop')->with('error', 'Koszyk jest pusty.');
         }
         $request->validate([
-            'imie' => 'required|string|max:255',
-            'nazwisko' => 'required|string|max:255',
-            'adres' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'surname' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
             'email' => 'required|email|max:255',
         ]);
         $suma = 0;
@@ -50,9 +50,9 @@ class CartController extends Controller
         $cart = json_encode($cart);
         DB::beginTransaction();
         $order = Order::create([
-            'imie' => $request->input('imie'),
-            'nazwisko' => $request->input('nazwisko'),
-            'adres' => $request->input('adres'),
+            'imie' => $request->input('name'),
+            'nazwisko' => $request->input('surname'),
+            'adres' => $request->input('address'),
             'email' => $request->input('email'),
             'produkty' => $cart,
             'suma' => $suma,
@@ -64,7 +64,7 @@ class CartController extends Controller
             return redirect()->route('shop')->with('success', 'Zamówienie złożone pomyślnie.');
         } else {
             DB::rollBack();
-            return redirect()->route('shop')->with('error', 'Wystąpił błąd podczas składania zamówienia.');
+            return redirect()->route('cart')->with('error', 'Wystąpił błąd podczas składania zamówienia.');
         }
     }
     public function addToCart(Request $request, $coffeeId)
@@ -96,6 +96,45 @@ class CartController extends Controller
         $request->session()->put('cart', $cart);
 
         return redirect()->route('shop')->with('success', 'Produkt dodany do koszyka.');
+    }
+    public function increment(Request $request, $coffeeId)
+    {
+        $coffee = Coffee::find($coffeeId);
+
+        if (!$coffee) {
+            return redirect()->route('shop')->with('error', 'Produkt nie istnieje.');
+        }
+
+        $cart = $request->session()->get('cart', []);
+        // Jeśli produkt istnieje w koszyku, zwiększ jego ilość
+        if (isset($cart[$coffee->id])) {
+            $cart[$coffee->id]['ilosc']++;
+            $request->session()->put('cart', $cart);
+
+            return redirect()->route('cart');
+        }
+    }
+    public function decrement(Request $request, $coffeeId)
+    {
+        $coffee = Coffee::find($coffeeId);
+
+        if (!$coffee) {
+            return redirect()->route('shop')->with('error', 'Produkt nie istnieje.');
+        }
+
+        $cart = $request->session()->get('cart', []);
+        // Jeśli produkt istnieje w koszyku, zmniejsz jego ilość jeśli jest większa od 1 lub usuń jeśli jest równa 1
+        if (isset($cart[$coffee->id])) {
+            if ($cart[$coffee->id]['ilosc'] > 1) {
+                $cart[$coffee->id]['ilosc']--;
+                $request->session()->put('cart', $cart);
+            } else {
+                unset($cart[$coffee->id]);
+                $request->session()->put('cart', $cart);
+            }
+
+            return redirect()->route('cart');
+        }
     }
     public function removeFromCart(Request $request, $coffeeId)
     {

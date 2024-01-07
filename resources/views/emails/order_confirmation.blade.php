@@ -19,7 +19,7 @@
     <ul>
         {{-- json order --}}
         @foreach (json_decode($order->produkty, true) as $item)
-            <li>{{ $item['nazwa'] }} (Ilość: {{ $item['quantity'] }})</li>
+            <li>{{ $item['nazwa'] }} (Ilość: {{ $item['ilosc'] }})</li>
         @endforeach
     </ul>
 
