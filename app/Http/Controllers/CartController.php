@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Mail\OrderConfirmationMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\RatingController;
 
 class CartController extends Controller
 {
@@ -50,6 +51,7 @@ class CartController extends Controller
         }
         $cart = json_encode($cart);
         DB::beginTransaction();
+        $token = (new RatingController)->generateUniqueAccessToken();
         $order = Order::create([
             'imie' => $request->input('name'),
             'nazwisko' => $request->input('surname'),
@@ -57,8 +59,9 @@ class CartController extends Controller
             'email' => $request->input('email'),
             'produkty' => $cart,
             'suma' => $suma,
+            'unique_order_access_key' => $token,
         ]);
-        if (self::sendEmail($order)) {
+        if (self::sendEmail($order, $token)) {
             // Wyczyść koszyk po pomyślnym zakupie
             DB::commit();
             $request->session()->forget('cart');
@@ -108,7 +111,6 @@ class CartController extends Controller
         } else {
             return redirect()->route('shop')->with('success', 'Produkt dodany do koszyka.');
         }
-
     }
     public function increment(Request $request, $coffeeId)
     {
@@ -160,9 +162,9 @@ class CartController extends Controller
 
         return redirect()->route('cart')->with('success', 'Produkt usunięty z koszyka.');
     }
-    public function sendEmail($order)
+    public function sendEmail($order, $token)
     {
-        $status = Mail::send(new OrderConfirmationMail($order));
+        $status = Mail::send(new OrderConfirmationMail($order, $token));
         return $status;
     }
     public function showOrders()

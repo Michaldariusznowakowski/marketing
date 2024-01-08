@@ -6,6 +6,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CookieController;
 use App\Http\Controllers\ImportCsvController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\RatingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,3 +42,6 @@ Route::get('/cookies/disallow', [CookieController::class, 'disallow'])->name('co
 Route::get('/importcsv', [ImportCsvController::class, 'show'])->name('import_csv');
 Route::post('/importcsv', [ImportCsvController::class, 'import'])->name('import_csv');
 Route::post('/importcsv/cols', [ImportCsvController::class, 'importWithCols'])->name('import_csv_cols');
+Route::get('/ratings', [RatingController::class, 'show'])->name('ratings');
+Route::get('/ratings/form/{unique_access_token}', [RatingController::class, 'showForm'])->name('ratingsForm');
+Route::post('/ratings/create', [RatingController::class, 'create'])->name('ratingsCreate');

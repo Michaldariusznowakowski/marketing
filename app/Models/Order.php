@@ -9,6 +9,6 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['imie', 'nazwisko', 'adres', 'email', 'produkty', 'suma'];
+    protected $fillable = ['imie', 'nazwisko', 'adres', 'email', 'produkty', 'suma', 'unique_order_access_key', 'status'];
     protected $casts = ['produkty' => 'json'];
 }

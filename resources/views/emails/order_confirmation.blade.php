@@ -28,6 +28,9 @@
     <p>Prosimy o dokonanie płatności na konto bankowe: xxxxxxxx, w terminie 7 dni od daty złożenia zamówienia.</p>
 
     <p>Dziękujemy za zakupy!</p>
+
+    <p>Oceń nasz sklep!</p>
+    <a href="{{ route('ratingsForm', ['unique_access_token' => $order->unique_access_token]) }}">Oceń</a>
 </body>
 
 </html>
