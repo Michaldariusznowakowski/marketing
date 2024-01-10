@@ -13,11 +13,6 @@ use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
-    public function purge()
-    {
-        DB::table('orders')->truncate();
-        return redirect()->route('shop')->with('success', 'Zamówienia zostały usunięte.');
-    }
     public function adminOrders(Request $request)
     {
         if ($request->input('status') !== null) {
@@ -64,48 +59,6 @@ class OrderController extends Controller
         $order->status = $request->input('status');
         $order->save();
         return redirect()->route('admin.orders')->with('success', 'Status zamówienia został zmieniony.');
-    }
-    public function checkout(Request $request)
-    {
-        $cart = session()->get('cart', []);
-
-        if (empty($cart)) {
-            return redirect()->route('shop')->with('error', 'Koszyk jest pusty.');
-        }
-        $request->validate([
-            'imie' => 'required|string|max:255',
-            'nazwisko' => 'required|string|max:255',
-            'adres' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-        ]);
-        $suma = 0;
-        foreach ($cart as $coffee) {
-            $suma += $coffee['quantity'] * $coffee['cena'];
-        }
-        $cart = json_encode($cart);
-        DB::beginTransaction();
-        $order = Order::create([
-            'imie' => $request->input('imie'),
-            'nazwisko' => $request->input('nazwisko'),
-            'adres' => $request->input('adres'),
-            'email' => $request->input('email'),
-            'produkty' => $cart,
-            'suma' => $suma,
-        ]);
-        if (self::sendConfirmationEmail($order)) {
-            // Wyczyść koszyk po pomyślnym zakupie
-            DB::commit();
-            $request->session()->forget('cart');
-            return redirect()->route('shop')->with('success', 'Zamówienie złożone pomyślnie.');
-        } else {
-            DB::rollBack();
-            return redirect()->route('shop')->with('error', 'Wystąpił błąd podczas składania zamówienia.');
-        }
-    }
-    public function sendConfirmationEmail($order)
-    {
-        $status = Mail::send(new OrderConfirmationMail($order));
-        return $status;
     }
     public function sendPaymentConfirmationEmail($order)
     {
