@@ -66,9 +66,9 @@ Route::get('/admin/comments', function () {
 Route::get('/admin/items', function () {
     return view('admin.index');
 })->name('admin.items');
-Route::get('/admin/orders', function () {
-    return view('admin.index');
-})->name('admin.orders');
 Route::get('/admin/comments', function () {
     return view('admin.index');
 })->name('admin.comments');
+
+Route::get('/admin/orders', [OrderController::class, 'adminOrders'])->name('admin.orders')->middleware('employee');
+Route::post('/admin/orders/updateStatus', [OrderController::class, 'updateOrderStatus'])->name('admin.orders.updateStatus')->middleware('employee');
