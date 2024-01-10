@@ -49,7 +49,24 @@ class CartController extends Controller
         foreach ($cart as $coffee) {
             $suma += $coffee['ilosc'] * $coffee['cena'];
         }
-        $cart = json_encode($cart);
+        foreach ($cart as $item) {
+            $kawa = Coffee::find($item['id']);
+            if (!$kawa) {
+                unset($cart[$item['id']]);
+                return redirect()->route('shop')->with('error', 'Produkt nie istnieje. Usunięto produkt z koszyka.' . $item['id']);
+            }
+            $iloscWbazie = $kawa->ilosc;
+            if ($iloscWbazie == 0) {
+                unset($cart[$item['id']]);
+                $request->session()->put('cart', $cart);
+                return redirect()->route('cart')->with('error', 'Brak ' . $item['nazwa'] . ' w magazynie. Usunięto produkt z koszyka.');
+            }
+            if ($iloscWbazie < $item['ilosc']) {
+                $cart[$item['id']]['ilosc'] = $iloscWbazie;
+                $request->session()->put('cart', $cart);
+                return redirect()->route('cart')->with('error', 'Brak wystarczającej ilości produktu ' . $item['nazwa'] . ' w magazynie. Zmniejszono ilość produktu w koszyku.');
+            }
+        }
         DB::beginTransaction();
         $token = (new RatingController)->generateUniqueAccessToken();
         $order = Order::create([
@@ -57,10 +74,15 @@ class CartController extends Controller
             'nazwisko' => $request->input('surname'),
             'adres' => $request->input('address'),
             'email' => $request->input('email'),
-            'produkty' => $cart,
+            'produkty' => json_encode($cart),
             'suma' => $suma,
             'unique_order_access_key' => $token,
         ]);
+        foreach ($cart as $item) {
+            $kawa = Coffee::find($item['id']);
+            $kawa->ilosc -= $item['ilosc'];
+            $kawa->save();
+        }
         if (self::sendEmail($order, $token)) {
             // Wyczyść koszyk po pomyślnym zakupie
             DB::commit();
@@ -85,6 +107,9 @@ class CartController extends Controller
         $cart = $request->session()->get('cart', []);
         // Jeśli produkt istnieje w koszyku, zwiększ jego ilość
         if (isset($cart[$coffee->id])) {
+            if ($coffee->ilosc < $cart[$coffee->id]['ilosc'] + 1) {
+                return redirect()->route('shop')->with('error', 'Brak wystarczającej ilości produktu.');
+            }
             $cart[$coffee->id]['ilosc']++;
             $request->session()->put('cart', $cart);
 
@@ -93,6 +118,9 @@ class CartController extends Controller
             } else {
                 return redirect()->route('shop')->with('success', 'Produkt dodany do koszyka.');
             }
+        }
+        if ($coffee->ilosc <= 0) {
+            return redirect()->route('shop')->with('error', 'Produkt niedostępny.');
         }
         // Dodaj produkt do koszyka
         $cart[$coffee->id] = [
@@ -123,6 +151,9 @@ class CartController extends Controller
         $cart = $request->session()->get('cart', []);
         // Jeśli produkt istnieje w koszyku, zwiększ jego ilość
         if (isset($cart[$coffee->id])) {
+            if ($coffee->ilosc < $cart[$coffee->id]['ilosc'] + 1) {
+                return redirect()->route('cart')->with('error', 'Brak wystarczającej ilości produktu.');
+            }
             $cart[$coffee->id]['ilosc']++;
             $request->session()->put('cart', $cart);
 
