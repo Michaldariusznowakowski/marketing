@@ -3,8 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Coffee;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,12 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
         $coffees = [
             ['img' => 'kawa1.jpg', 'nazwa' => 'Kawa Arabica', 'opis' => 'Najwyższej jakości kawa Arabica.', 'cena' => 20],
             ['img' => 'kawa2.jpg', 'nazwa' => 'Kawa Robusta', 'opis' => 'Intensywna kawa Robusta dla miłośników mocnego smaku.', 'cena' => 40],
@@ -55,5 +50,11 @@ class DatabaseSeeder extends Seeder
         foreach ($coffees as $coffee) {
             Coffee::create($coffee);
         }
+
+        User::create([
+            'name' => 'administrator',
+            'role' => 'admin',
+            'password' => bcrypt('admin'),
+        ]);
     }
 }
