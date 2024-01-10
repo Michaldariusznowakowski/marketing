@@ -6,7 +6,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CookieController;
 use App\Http\Controllers\ImportCsvController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\RatingController;

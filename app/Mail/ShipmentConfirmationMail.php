@@ -20,13 +20,13 @@ class ShipmentConfirmationMail extends Mailable
     public function __construct(Order $order, string $trackingNumber)
     {
         $this->order = $order;
-        $this->$trackingNumber = $trackingNumber;
+        $this->trackingNumber = $trackingNumber;
     }
 
     public function build()
     {
         $this->subject('Wysłano zamówienie nr ' . $this->order->id);
         $this->to($this->order->email, $this->order->imie . ' ' . $this->order->nazwisko);
-        return $this->view('emails.order_confirmation');
+        return $this->view('emails.shipment_confirmation');
     }
 }

@@ -1,5 +1,26 @@
 @extends('admin._show')
 @section('content')
+    @if (session('success'))
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+            <strong class="font-bold">Sukces!</strong>
+            <span class="block sm:inline">{{ session('success') }}</span>
+        </div>
+    @endif
+    @if ($errors->any() || session('error'))
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <strong class="font-bold">Błąd!</strong>
+            <span class="block sm:inline">Wystąpiły błędy podczas przetwarzania formularza!</span>
+            <ul class="mt-3 list-disc list-inside text-sm text-red-600">
+                @if (session('error'))
+                    <li>{{ session('error') }}</li>
+                @endif
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+
+        </div>
+    @endif
     <h1 class="text-2xl font-bold">Zamówienia</h1>
     <p>Wybierz, które zamówienia chcesz wyświetlić:</p>
     <form action="{{ route('admin.orders') }}" method="GET">
@@ -28,9 +49,9 @@
                 @if ($order->status == 0)
                     Oczekujące na płatność
                 @elseif($order->status == 1)
-                    Wysłane
+                    Opłacone
                 @else
-                    Odebrane
+                    Wysłane
                 @endif
             </p>
             <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST">

@@ -11,7 +11,6 @@
 <body>
 
     <h2>Szanowny/a {{ $order->imie }} {{ $order->nazwisko }},</h2>
-    <p>Informujemy, że zamówienie o numerze zostało wysłane.</p>
 
     <p>Twoje zamówienie o numerze {{ $order->id }} zostało wysłane.</p>
 

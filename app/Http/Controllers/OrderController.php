@@ -31,23 +31,16 @@ class OrderController extends Controller
             'id' => 'required|integer',
             'status' => 'required|integer',
         ]);
-        if ($request->input('status') < 0 || $request->input('status') > 3) {
-            return redirect()->route('admin.orders')->with('error', 'Nieprawidłowy status zamówienia.');
-        }
         $order = Order::find($request->input('id'));
-        if ($order->status === $request->input('status')) {
-            return redirect()->route('admin.orders')->with('error', 'Status zamówienia jest już ustawiony na ' . $request->input('status') . '.');
-        }
         if ($request->input('status') < $order->status) {
             return redirect()->route('admin.orders')->with('error', 'Nie można cofnąć statusu zamówienia.');
         }
-        if ($request->input('status') === 2) {
+        if ($request->input('status') == 1) {
             $status = self::sendPaymentConfirmationEmail($order);
             if (!$status) {
                 return redirect()->route('admin.orders')->with('error', 'Wystąpił błąd podczas wysyłania wiadomości.');
             }
-        }
-        if ($request->input('status') === 3) {
+        } elseif ($request->input('status') == 2) {
             Request()->validate([
                 'tracking_number' => 'required|string|max:255',
             ]);
@@ -55,6 +48,8 @@ class OrderController extends Controller
             if (!$status) {
                 return redirect()->route('admin.orders')->with('error', 'Wystąpił błąd podczas wysyłania wiadomości.');
             }
+        } else {
+            return redirect()->route('admin.orders')->with('error', 'Nieprawidłowy status zamówienia.');
         }
         $order->status = $request->input('status');
         $order->save();
