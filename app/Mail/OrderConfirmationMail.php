@@ -16,9 +16,10 @@ class OrderConfirmationMail extends Mailable
 
     public $order;
 
-    public function __construct(Order $order)
+    public function __construct(Order $order, string $unique_access_token)
     {
         $this->order = $order;
+        $this->order->unique_access_token = $unique_access_token;
     }
 
     public function build()
