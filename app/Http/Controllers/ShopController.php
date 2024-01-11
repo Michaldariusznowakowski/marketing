@@ -17,6 +17,10 @@ class ShopController extends Controller
     public function showProduct($coffeeId)
     {
         $coffee = Coffee::find($coffeeId);
-        return view('product', compact('coffee'));
+
+        $coffees = Coffee::all();
+        $randomCoffees = $coffees->count() > 3 ? $coffees->random(3) : $coffees;
+
+        return view('product', compact('coffee', 'randomCoffees'));
     }
 }
