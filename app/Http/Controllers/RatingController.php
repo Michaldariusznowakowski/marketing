@@ -60,6 +60,7 @@ class RatingController extends Controller
     }
     public function create(Request $request)
     {
+
         $request->validate([
             'rating' => 'required|integer|min:1|max:5',
             'comment' => 'required|string|max:255',

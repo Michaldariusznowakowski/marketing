@@ -120,7 +120,7 @@
                                                 class="block mb-2 text-sm font-medium text-gray-900">Imię</label>
                                             <input id="name" name="name"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                                placeholder="name@flowbite.com" required value="{{ old('name') }}">
+                                                placeholder="Ania" required value="{{ old('name') }}">
                                             @error('name')
                                                 <div class="text-red-500">{{ $message }}</div>
                                             @enderror
@@ -130,7 +130,7 @@
                                                 class="block mb-2 text-sm font-medium text-gray-900">Nazwisko</label>
                                             <input id="surname" name="surname"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                                placeholder="name@flowbite.com" required value="{{ old('surname') }}">
+                                                placeholder="Przykładowa" required value="{{ old('surname') }}">
                                             @error('surname')
                                                 <div class="text-red-500">{{ $message }}</div>
                                             @enderror
@@ -140,7 +140,7 @@
                                                 class="block mb-2 text-sm font-medium text-gray-900">Adres</label>
                                             <input id="address" name="address"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                                placeholder="Szczecin Ulicia Pocztowa 3/5 55-300" required
+                                                placeholder="ul. Pocztowa 3/5, 55-300 Sosnowiec" required
                                                 value="{{ old('address') }}">
                                             @error('address')
                                                 <div class="text-red-500">{{ $message }}</div>
@@ -151,7 +151,7 @@
                                                 class="block mb-2 text-sm font-medium text-gray-900">Email</label>
                                             <input type="email" id="email" name="email"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                                placeholder="name@flowbite.com" required value="{{ old('email') }}">
+                                                placeholder="ania@gmail.com" required value="{{ old('email') }}">
                                             @error('email')
                                                 <div class="text-red-500">{{ $message }}</div>
                                             @enderror

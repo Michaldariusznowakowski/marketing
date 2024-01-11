@@ -37,10 +37,24 @@
             </div>
             <div class="py-4 border-b border-gray-200 flex items-center justify-between">
             </div>
+
             <a href="{{ route('addToCart', ['coffeeId' => $coffee->id]) }}"
-               class="dark:bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-700 text-base flex items-center justify-center leading-none text-white bg-orange-700 w-full py-4 hover:bg-orange-800 focus:outline-none">
+               class="@if ($coffee->ilosc < 1) disabled @endif dark:bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-700 text-base flex items-center justify-center leading-none text-white bg-orange-700 w-full py-4 hover:bg-orange-800 focus:outline-none">
                 Do koszyka
             </a>
+            @if ($coffee->ilosc < 1)
+                <p class="text-lg mt-2 text-red-600 font-bold">Brak produktu na stanie</p>
+            @endif
+            @if ($coffee->ilosc < 5)
+                <div class="flex w-full justify-center mt-3">
+                    <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative text-center mb-2"
+                         role="alert">
+                        <strong class="font-bold">Zostały tylko {{ $coffee->ilosc }}
+                            sztuk{{ $coffee->ilosc == 1 ? 'a' : 'i' }}
+                            tego produktu!</strong>
+                    </div>
+                </div>
+            @endif
             <div>
                 <p class="xl:pr-48 text-base mb-10 lg:leading-tight leading-normal text-gray-600 mt-7">{{ $coffee->opis }}</p>
                 <p class="text-base leading-4 mt-4 text-gray-600">Moc: {{ rand(1, 5) }}</p>
@@ -103,5 +117,12 @@
             });
         }
     </script>
+    <style>
+        a.disabled {
+            pointer-events: none;
+            cursor: default;
+            background-color: grey;
+        }
+    </style>
 @endsection
 @include('_show')

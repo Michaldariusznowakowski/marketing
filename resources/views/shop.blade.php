@@ -39,7 +39,7 @@
                                             obniżką: {{ $coffee->cena }} zł</p>
                                         <div class="text-center">
                                             <a href="{{ route('addToCart', ['coffeeId' => $coffee->id]) }}"
-                                                class="mt-4 inline-flex px-3 py-2 text-sm font-medium text-white bg-orange-700 rounded-lg
+                                                class="@if ($coffee->ilosc < 1) disabled @endif mt-4 inline-flex px-3 py-2 text-sm font-medium text-white bg-orange-700 rounded-lg
                                hover:bg-orange-800">
                                                 Do koszyka
                                             </a>
@@ -64,5 +64,12 @@
             </div>
         @endif
     </div>
+    <style>
+        a.disabled {
+            pointer-events: none;
+            cursor: default;
+            background-color: grey;
+        }
+    </style>
 @endsection
 @include('_show')
