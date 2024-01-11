@@ -9,5 +9,5 @@ class Coffee extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['img', 'nazwa', 'opis', 'cena'];
+    protected $fillable = ['img', 'nazwa', 'opis', 'cena', 'ilosc'];
 }

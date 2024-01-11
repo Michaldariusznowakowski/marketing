@@ -123,5 +123,14 @@
                 </div>
             </div>
         </div>
+        <div>
+            <p class="mt-10 text-2xl tracking-tight font-extrabold text-gray-900 text-center">Wszystkie nasze kawy to certyfikowane produkty</p>
+            <div class="flex justify-center mt-4">
+                <img class="h-20 ml-5" src="agroeko.png" alt="cert 1"/>
+                <img class="h-20 ml-5" src="esr.png" alt="cert 2"/>
+                <img class="h-20 ml-5" src="fairtrade.png" alt="cert 3"/>
+                <img class="h-20 ml-5" src="rainforest.png" alt="cert 3"/>
+            </div>
+        </div>
     </section>
 @endsection
