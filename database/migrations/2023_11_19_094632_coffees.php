@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('img')->nullable();
             $table->string('nazwa');
             $table->text('opis');
-            $table->integer('cena');
+            $table->float('cena');
+            $table->integer('ilosc')->default(0);
             $table->timestamps();
         });
     }

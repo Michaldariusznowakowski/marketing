@@ -1,5 +1,3 @@
-<!-- resources/views/emails/order_confirmation.blade.php -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +19,7 @@
     <ul>
         {{-- json order --}}
         @foreach (json_decode($order->produkty, true) as $item)
-            <li>{{ $item['nazwa'] }} (Ilość: {{ $item['quantity'] }})</li>
+            <li>{{ $item['nazwa'] }} (Ilość: {{ $item['ilosc'] }})</li>
         @endforeach
     </ul>
 
@@ -30,6 +28,9 @@
     <p>Prosimy o dokonanie płatności na konto bankowe: xxxxxxxx, w terminie 7 dni od daty złożenia zamówienia.</p>
 
     <p>Dziękujemy za zakupy!</p>
+
+    <p>Oceń nasz sklep!</p>
+    <a href="{{ route('ratingsForm', ['unique_access_token' => $order->unique_access_token]) }}">Oceń</a>
 </body>
 
 </html>

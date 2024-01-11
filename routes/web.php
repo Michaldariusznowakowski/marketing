@@ -1,10 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CoffeeController;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CookieController;
 use App\Http\Controllers\ImportCsvController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\RatingController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,14 +25,23 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return view('about');
 })->name('about');
-Route::get('/shop', [CoffeeController::class, 'show'])->name('shop');
-Route::get('/shop/add-to-cart/{coffeeId}', [CoffeeController::class, 'addToCart'])->name('addToCart');
-Route::post('/shop/checkout', [OrderController::class, 'checkout'])->name('checkout');
-Route::get('/shop/remove-from-cart/{coffeeId}', [CoffeeController::class, 'removeFromCart'])->name('removeFromCart');
-Route::get('/shop/orders', [OrderController::class, 'index'])->name('orders');
-Route::post('/shop/orders/purge', [OrderController::class, 'purge'])->name('purgeOrders');
+Route::get('/cart', [CartController::class, 'show'])->name('cart');
+Route::get('/contact', [ContactController::class, 'show'])->name('contact');
+Route::post('/contact', [ContactController::class, 'send']);
+Route::get('/shop', [ShopController::class, 'show'])->name('shop');
+Route::get('/shop/{coffeeId}', [ShopController::class, 'showProduct'])->name('product');
+Route::get('/cart/add-to-cart/{coffeeId}', [CartController::class, 'addToCart'])->name('addToCart');
+Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('checkout');
+Route::get('/cart/remove-from-cart/{coffeeId}', [CartController::class, 'removeFromCart'])->name('removeFromCart');
+Route::get('/cart/increment/{coffeeId}', [CartController::class, 'increment'])->name('incrementCart');
+Route::get('/cart/decrement/{coffeeId}', [CartController::class, 'decrement'])->name('decrementCart');
+Route::get('/cart/orders', [CartController::class, 'showOrders'])->name('orders');
+Route::post('/cart/orders/purge', [CartController::class, 'purge'])->name('purgeOrders');
 Route::get('/cookies/allow', [CookieController::class, 'allow'])->name('cookiesAllow');
 Route::get('/cookies/disallow', [CookieController::class, 'disallow'])->name('cookiesDisallow');
 Route::get('/importcsv', [ImportCsvController::class, 'show'])->name('import_csv');
 Route::post('/importcsv', [ImportCsvController::class, 'import'])->name('import_csv');
 Route::post('/importcsv/cols', [ImportCsvController::class, 'importWithCols'])->name('import_csv_cols');
+Route::get('/ratings', [RatingController::class, 'show'])->name('ratings');
+Route::get('/ratings/form/{unique_access_token}', [RatingController::class, 'showForm'])->name('ratingsForm');
+Route::post('/ratings/create', [RatingController::class, 'create'])->name('ratingsCreate');

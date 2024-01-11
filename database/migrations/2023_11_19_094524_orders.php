@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('email');
             $table->json('produkty'); // ID produktów w formie JSON
             $table->float('suma');
+            $table->string('unique_order_access_key', 255)->nullable();
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }
