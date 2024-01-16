@@ -63,8 +63,8 @@ Route::get('/admin/items', [ItemController::class, 'show'])->name('admin.items')
 Route::post('/admin/items/add', [ItemController::class, 'addItem'])->name('admin.items.add');
 Route::post('/admin/items/delete', [ItemController::class, 'deleteItem'])->name('admin.items.delete');
 Route::post('/admin/items/edit', [ItemController::class, 'updateItem'])->name('admin.items.update');
-Route::get('/admin/items/import', [ItemController::class, 'import'])->name('admin.items.import');
-Route::post('/admin/items/import', [ItemController::class, 'importCsv'])->name('admin.items.importCsv');
+Route::get('/admin/items/import', [ItemController::class, 'showImportForm'])->name('admin.items.import');
+Route::post('/admin/items/import', [ItemController::class, 'import'])->name('admin.items.importCsv');
 Route::post('/admin/items/import/cols', [ItemController::class, 'importCsvWithCols'])->name('admin.items.importCsvWithCols');
 Route::get('/admin/comments', function () {
     return view('admin.index');
