@@ -46,7 +46,12 @@ class DatabaseSeeder extends Seeder
             ['img' => 'kawa29.jpg', 'nazwa' => 'Kawa Pistacjowa', 'opis' => 'Kawa z dodatkiem kremowej pistacji, idealna dla fanów orzechowych smaków.', 'cena' => 36, 'ilosc' => 95],
             ['img' => 'kawa30.jpg', 'nazwa' => 'Kawa z Malinowym Syropem', 'opis' => 'Kawa z dodatkiem syropu malinowego, idealna na słodkie chwile.', 'cena' => 35, 'ilosc' => 33],
         ];
-
+        // user
+        User::create([
+            'name' => 'admin',
+            'password' => Hash::make('admin'),
+            'role' => 'admin',
+        ]);
         foreach ($coffees as $coffee) {
             Coffee::create($coffee);
         }
