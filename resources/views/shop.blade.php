@@ -27,8 +27,8 @@
                             <div class="bg-white border border-gray-200 rounded-lg shadow overflow-hidden flex flex-col">
                                 <a href="{{ route('product', ['coffeeId' => $coffee->id]) }}" class="flex flex-col">
                                     <div class="relative h-72 overflow-hidden">
-                                        <img class="absolute inset-0 w-full h-full object-cover" src="{{ $coffee->img }}"
-                                            alt="{{ $coffee->nazwa }}" />
+                                        <img class="absolute inset-0 w-full h-full object-cover"
+                                            src="{{ asset('storage/' . $coffee->img) }}" alt="{{ $coffee->nazwa }}" />
                                     </div>
                                     <div class="flex flex-col justify-center flex-1 p-2 text-center">
                                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">

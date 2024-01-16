@@ -4,12 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CookieController;
-use App\Http\Controllers\ImportCsvController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\ItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,9 +42,6 @@ Route::get('/cart/orders', [CartController::class, 'showOrders'])->name('orders'
 Route::post('/cart/orders/purge', [CartController::class, 'purge'])->name('purgeOrders');
 Route::get('/cookies/allow', [CookieController::class, 'allow'])->name('cookiesAllow');
 Route::get('/cookies/disallow', [CookieController::class, 'disallow'])->name('cookiesDisallow');
-Route::get('/importcsv', [ImportCsvController::class, 'show'])->name('import_csv');
-Route::post('/importcsv', [ImportCsvController::class, 'import'])->name('import_csv');
-Route::post('/importcsv/cols', [ImportCsvController::class, 'importWithCols'])->name('import_csv_cols');
 Route::get('/admin', function () {
     if (Auth::check()) {
         return view('admin.index');
@@ -62,19 +59,16 @@ Route::post('/admin/users/updateRole', [UserController::class, 'updateRole'])->n
 
 //Route::get('/admin/comments', [AdminController::class, 'comments'])->name('admin.comments');
 //Route::post('/admin/comments/delete', [AdminController::class, 'deleteComment'])->name('admin.comments.delete');
-//Route::get('/admin/items', [AdminController::class, 'items'])->name('admin.items');
-//Route::post('/admin/items/add', [AdminController::class, 'addItem'])->name('admin.items.add');
-//Route::post('/admin/items/delete', [AdminController::class, 'deleteItem'])->name('admin.items.delete');
-//Route::post('/admin/items/edit', [AdminController::class, 'updateItem'])->name('admin.items.update');
-//Route::get('/admin/orders', [AdminController::class, 'orders'])->name('admin.orders');
-//Route::post('/admin/orders/delete', [AdminController::class, 'deleteOrder'])->name('admin.orders.delete');
-//Route::post('/admin/orders/updateStatus', [AdminController::class, 'updateOrderStatus'])->name('admin.orders.updateStatus');
+Route::get('/admin/items', [ItemController::class, 'show'])->name('admin.items');
+Route::post('/admin/items/add', [ItemController::class, 'addItem'])->name('admin.items.add');
+Route::post('/admin/items/delete', [ItemController::class, 'deleteItem'])->name('admin.items.delete');
+Route::post('/admin/items/edit', [ItemController::class, 'updateItem'])->name('admin.items.update');
+Route::get('/admin/items/import', [ItemController::class, 'import'])->name('admin.items.import');
+Route::post('/admin/items/import', [ItemController::class, 'importCsv'])->name('admin.items.importCsv');
+Route::post('/admin/items/import/cols', [ItemController::class, 'importCsvWithCols'])->name('admin.items.importCsvWithCols');
 Route::get('/admin/comments', function () {
     return view('admin.index');
 })->name('admin.comments');
-Route::get('/admin/items', function () {
-    return view('admin.index');
-})->name('admin.items');
 Route::get('/admin/comments', function () {
     return view('admin.index');
 })->name('admin.comments');
