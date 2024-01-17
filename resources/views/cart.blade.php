@@ -156,7 +156,7 @@
                                                 <div class="text-red-500">{{ $message }}</div>
                                             @enderror
                                         </div>
-                                        <button type="submit"
+                                        <button type="submit" id="checkout-button"
                                             class="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
                                             Zakończ zakup
                                         </button>
@@ -202,5 +202,30 @@
             document.getElementById('confirmationModal').classList.add('hidden');
         });
     </script>
+    @if (empty($cart))
+    @else
+        <script>
+            document.getElementById('checkout-button').addEventListener('click', function(e) {
+                gtag('event', 'purchase', {
+                    "transaction_id": Math.random().toString(36).substring(7),
+                    "affiliation": "Kawka On-Line",
+                    "value": "{{ $totalPrice }}",
+                    "currency": "PLN",
+                    "tax": 0,
+                    "shipping": 0,
+                    "items": [
+                        @foreach ($cart as $item)
+                            {
+                                "item_id": "{{ $item['id'] }}",
+                                "item_name": "{{ $item['nazwa'] }}",
+                                "quantity": "{{ $item['ilosc'] }}",
+                                "price": "{{ $item['cena'] }}",
+                            },
+                        @endforeach
+                    ]
+                });
+            });
+        </script>
+    @endif
 @endsection
 @include('_show')
