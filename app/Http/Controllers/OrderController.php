@@ -7,6 +7,7 @@ use App\Models\Coffee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Mail\OrderConfirmationMail;
+use App\Mail\DeletedOrderConfirmationMail;
 use App\Mail\PaymentConfirmationMail;
 use App\Mail\ShipmentConfirmationMail;
 use Illuminate\Support\Facades\Mail;
@@ -44,12 +45,16 @@ class OrderController extends Controller
             Request()->validate([
                 'tracking_number' => 'required|string|max:255',
             ]);
-            $status = self::sendShipmentConfirmationEmail($order, $request->input('tracking_number'));
+            $token = $order->unique_order_access_key;
+            $status = self::sendShipmentConfirmationEmail($order, $request->input('tracking_number'), $token);
             if (!$status) {
                 return redirect()->route('admin.orders')->with('error', 'Wystąpił błąd podczas wysyłania wiadomości.');
             }
-        } else {
-            return redirect()->route('admin.orders')->with('error', 'Nieprawidłowy status zamówienia.');
+        } elseif ($request->input('status') == 3) {
+            $status = self::sendDeletedOrderEmail($order);
+            if (!$status) {
+                return redirect()->route('admin.orders')->with('error', 'Wystąpił błąd podczas wysyłania wiadomości.');
+            }
         }
         $order->status = $request->input('status');
         $order->save();
@@ -60,9 +65,14 @@ class OrderController extends Controller
         $status = Mail::send(new PaymentConfirmationMail($order));
         return $status;
     }
-    public function sendShipmentConfirmationEmail($order, $trackingNumber)
+    public function sendShipmentConfirmationEmail($order, $trackingNumber, $token)
     {
-        $status = Mail::send(new ShipmentConfirmationMail($order, $trackingNumber));
+        $status = Mail::send(new ShipmentConfirmationMail($order, $trackingNumber, $token));
+        return $status;
+    }
+    public function sendDeletedOrderEmail($order)
+    {
+        $status = Mail::send(new DeletedOrderConfirmationMail($order));
         return $status;
     }
 }

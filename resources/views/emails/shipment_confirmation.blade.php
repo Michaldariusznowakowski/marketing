@@ -16,6 +16,8 @@
 
     <p>Numer przesyłki: {{ $trackingNumber }}</p>
 
+    <h3> Oceń nasz sklep</h3>
+    <a href="{{ route('ratingsForm', ['unique_access_token' => $unique_access_token]) }}">Oceń</a>
 
     <p>Dziękujemy za zakupy!</p>
 </body>

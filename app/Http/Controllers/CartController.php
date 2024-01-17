@@ -83,7 +83,7 @@ class CartController extends Controller
             $kawa->ilosc -= $item['ilosc'];
             $kawa->save();
         }
-        if (self::sendEmail($order, $token)) {
+        if (self::sendEmail($order)) {
             // Wyczyść koszyk po pomyślnym zakupie
             DB::commit();
             $request->session()->forget('cart');
@@ -193,9 +193,9 @@ class CartController extends Controller
 
         return redirect()->route('cart')->with('success', 'Produkt usunięty z koszyka.');
     }
-    public function sendEmail($order, $token)
+    public function sendEmail($order)
     {
-        $status = Mail::send(new OrderConfirmationMail($order, $token));
+        $status = Mail::send(new OrderConfirmationMail($order));
         return $status;
     }
     public function showOrders()

@@ -23,6 +23,7 @@
                 <option value="0" {{ request('status') == 0 ? 'selected' : '' }}>Oczekujące na płatność</option>
                 <option value="1" {{ request('status') == 1 ? 'selected' : '' }}>Opłacone</option>
                 <option value="2" {{ request('status') == 2 ? 'selected' : '' }}>Wysłane</option>
+                <option value="3" {{ request('status') == 3 ? 'selected' : '' }}>Anulowane</option>
             </select>
             <button type="submit"
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Filtruj</button>
@@ -47,8 +48,10 @@
                             Oczekujące na płatność
                         @elseif($order->status == 1)
                             Opłacone
-                        @else
+                        @elseif($order->status == 2)
                             Wysłane
+                        @elseif($order->status == 3)
+                            Anulowane
                         @endif
                     </p>
                     <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST"
@@ -59,6 +62,7 @@
                             </option>
                             <option value="1" {{ $order->status == 1 ? 'selected' : '' }}>Opłacone</option>
                             <option value="2" {{ $order->status == 2 ? 'selected' : '' }}>Wysłane</option>
+                            <option value="3" {{ $order->status == 3 ? 'selected' : '' }}>Anulowane</option>
                         </select>
                         <div id="trackingNumberInput{{ $order->id }}" class="mr-2" hidden>
                             <input type="text" name="tracking_number" placeholder="Numer przesyłki"

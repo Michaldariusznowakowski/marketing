@@ -16,10 +16,12 @@ class ShipmentConfirmationMail extends Mailable
 
     public $order;
     public $trackingNumber;
+    public $unique_access_token;
 
-    public function __construct(Order $order, string $trackingNumber)
+    public function __construct(Order $order, string $trackingNumber, string $unique_access_token)
     {
         $this->order = $order;
+        $this->unique_access_token = $unique_access_token;
         $this->trackingNumber = $trackingNumber;
     }
 
