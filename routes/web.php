@@ -56,25 +56,15 @@ Route::post('/admin/users/add', [UserController::class, 'addUser'])->name('admin
 Route::post('/admin/users/delete', [UserController::class, 'deleteUser'])->name('admin.users.delete')->middleware('admin');
 Route::post('/admin/users/updatePassword', [UserController::class, 'updatePassword'])->name('admin.users.updatePassword')->middleware('admin');
 Route::post('/admin/users/updateRole', [UserController::class, 'updateRole'])->name('admin.users.updateRole')->middleware('admin');
-
-//Route::get('/admin/comments', [AdminController::class, 'comments'])->name('admin.comments');
-//Route::post('/admin/comments/delete', [AdminController::class, 'deleteComment'])->name('admin.comments.delete');
-Route::get('/admin/items', [ItemController::class, 'show'])->name('admin.items');
-Route::post('/admin/items/add', [ItemController::class, 'addItem'])->name('admin.items.add');
-Route::post('/admin/items/delete', [ItemController::class, 'deleteItem'])->name('admin.items.delete');
-Route::post('/admin/items/edit', [ItemController::class, 'updateItem'])->name('admin.items.update');
-Route::get('/admin/items/import', [ItemController::class, 'showImportForm'])->name('admin.items.import');
-Route::post('/admin/items/import', [ItemController::class, 'import'])->name('admin.items.importCsv');
-Route::post('/admin/items/import/cols', [ItemController::class, 'importCsvWithCols'])->name('admin.items.importCsvWithCols');
-Route::get('/admin/comments', function () {
-    return view('admin.index');
-})->name('admin.comments');
-Route::get('/admin/comments', function () {
-    return view('admin.index');
-})->name('admin.comments');
-
+Route::get('/admin/items', [ItemController::class, 'show'])->name('admin.items')->middleware('employee');
+Route::post('/admin/items/add', [ItemController::class, 'addItem'])->name('admin.items.add')->middleware('employee');
+Route::post('/admin/items/delete', [ItemController::class, 'deleteItem'])->name('admin.items.delete')->middleware('admin');
+Route::post('/admin/items/edit', [ItemController::class, 'updateItem'])->name('admin.items.update')->middleware('employee');
+Route::get('/admin/items/import', [ItemController::class, 'showImportForm'])->name('admin.items.import')->middleware('admin');
+Route::post('/admin/items/import', [ItemController::class, 'import'])->name('admin.items.importCsv')->middleware('admin');
+Route::post('/admin/items/import/cols', [ItemController::class, 'importCsvWithCols'])->name('admin.items.importCsvWithCols')->middleware('admin');
 Route::get('/admin/orders', [OrderController::class, 'adminOrders'])->name('admin.orders')->middleware('employee');
 Route::post('/admin/orders/updateStatus', [OrderController::class, 'updateOrderStatus'])->name('admin.orders.updateStatus')->middleware('employee');
-Route::get('/ratings', [RatingController::class, 'show'])->name('ratings');
-Route::get('/ratings/form/{unique_access_token}', [RatingController::class, 'showForm'])->name('ratingsForm');
-Route::post('/ratings/create', [RatingController::class, 'create'])->name('ratingsCreate');
+Route::get('/ratings', [RatingController::class, 'show'])->name('ratings')->middleware('employee');
+Route::get('/ratings/form/{unique_access_token}', [RatingController::class, 'showForm'])->name('ratingsForm')->middleware('admin');
+Route::post('/ratings/create', [RatingController::class, 'create'])->name('ratingsCreate')->middleware('admin');
