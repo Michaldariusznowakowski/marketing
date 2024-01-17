@@ -2,8 +2,7 @@
     @if (session('success'))
         <div class="w-full mt-10">
             <div class="flex w-full justify-center">
-                <div
-                    class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative w-3/6 text-center"
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative w-3/6 text-center"
                     role="alert">
                     <strong class="font-bold">{{ session('success') }}</strong>
                 </div>
@@ -14,7 +13,7 @@
         <div class="w-full mt-10">
             <div class="flex w-full justify-center">
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative w-3/6 text-center"
-                     role="alert">
+                    role="alert">
                     <strong class="font-bold">{{ session('error') }}</strong>
                 </div>
             </div>
@@ -28,7 +27,7 @@
     </div>
     <div class="md:flex items-start justify-center py-12 2xl:px-20 md:px-6 px-4">
         <div class="xl:w-2/6 lg:w-2/5 w-80 md:block">
-            <img class="w-full" src="../{{ $coffee->img }}" alt="{{ $coffee->nazwa }}"/>
+            <img class="w-full" src="{{ asset('storage/' . $coffee->img) }}" alt="{{ $coffee->nazwa }}" />
         </div>
         <div class="xl:w-2/5 md:w-1/2 lg:ml-8 md:ml-6 md:mt-0 mt-6">
             <div class="border-b border-gray-200 pb-6">
@@ -39,7 +38,7 @@
             </div>
 
             <a href="{{ route('addToCart', ['coffeeId' => $coffee->id]) }}"
-               class="@if ($coffee->ilosc < 1) disabled @endif dark:bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-700 text-base flex items-center justify-center leading-none text-white bg-orange-700 w-full py-4 hover:bg-orange-800 focus:outline-none">
+                class="@if ($coffee->ilosc < 1) disabled @endif dark:bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-700 text-base flex items-center justify-center leading-none text-white bg-orange-700 w-full py-4 hover:bg-orange-800 focus:outline-none">
                 Do koszyka
             </a>
             @if ($coffee->ilosc < 1)
@@ -47,8 +46,7 @@
             @endif
             @if ($coffee->ilosc < 5)
                 <div class="flex w-full justify-center mt-3">
-                    <div
-                        class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative text-center mb-2"
+                    <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative text-center mb-2"
                         role="alert">
                         <strong class="font-bold">Zostały tylko {{ $coffee->ilosc }}
                             sztuk{{ $coffee->ilosc == 1 ? 'a' : 'i' }}
@@ -57,7 +55,8 @@
                 </div>
             @endif
             <div>
-                <p class="xl:pr-48 text-base mb-10 lg:leading-tight leading-normal text-gray-600 mt-7">{{ $coffee->opis }}</p>
+                <p class="xl:pr-48 text-base mb-10 lg:leading-tight leading-normal text-gray-600 mt-7">{{ $coffee->opis }}
+                </p>
                 <p class="text-base leading-4 mt-4 text-gray-600">Moc: {{ rand(1, 5) }}</p>
                 <p class="text-base leading-4 mt-4 text-gray-600">Kwasowość: {{ rand(1, 5) }}</p>
             </div>
@@ -69,15 +68,14 @@
                             class="cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 rounded"
                             role="button" aria-label="show or hide">
                             <svg class="transform text-gray-300 dark:text-white" width="10" height="6"
-                                 viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 1L5 5L1 1" stroke="currentColor" stroke-width="1.25"
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"/>
+                                viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 1L5 5L1 1" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"
+                                    stroke-linejoin="round" />
                             </svg>
                         </button>
                     </div>
                     <div class="hidden pt-4 text-base leading-normal pr-12 mt-4 text-gray-600 dark:text-gray-300"
-                         id="sect">
+                        id="sect">
                         @include('_returnNote')
                     </div>
                 </div>
@@ -90,15 +88,14 @@
                             class="cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 rounded"
                             role="button" aria-label="show or hide">
                             <svg class="transform text-gray-300 dark:text-white" width="10" height="6"
-                                 viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 1L5 5L1 1" stroke="currentColor" stroke-width="1.25"
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"/>
+                                viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 1L5 5L1 1" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"
+                                    stroke-linejoin="round" />
                             </svg>
                         </button>
                     </div>
                     <div class="hidden pt-4 text-base leading-normal pr-12 mt-4 text-gray-600 dark:text-gray-300"
-                         id="sect">W razie jakichkolwiek pytań skontaktuj się z nami na dane podane w zakładce
+                        id="sect">W razie jakichkolwiek pytań skontaktuj się z nami na dane podane w zakładce
                         Kontakt :)
                     </div>
                 </div>
@@ -115,8 +112,7 @@
                             <a href="{{ route('product', ['coffeeId' => $randomCoffee->id]) }}" class="flex flex-col">
                                 <div class="relative h-72 overflow-hidden">
                                     <img class="absolute inset-0 w-full h-full object-cover"
-                                         src="../{{ $randomCoffee->img }}"
-                                         alt="{{ $randomCoffee->nazwa }}"/>
+                                        src="../{{ $randomCoffee->img }}" alt="{{ $randomCoffee->nazwa }}" />
                                 </div>
                                 <div class="flex flex-col justify-center flex-1 p-2 text-center">
                                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
@@ -128,7 +124,7 @@
                                         obniżką: {{ $randomCoffee->cena }} zł</p>
                                     <div class="text-center">
                                         <a href="{{ route('addToCart', ['coffeeId' => $coffee->id]) }}"
-                                           class="@if ($randomCoffee->ilosc < 1) disabled @endif mt-4 inline-flex px-3 py-2 text-sm font-medium text-white bg-orange-700 rounded-lg
+                                            class="@if ($randomCoffee->ilosc < 1) disabled @endif mt-4 inline-flex px-3 py-2 text-sm font-medium text-white bg-orange-700 rounded-lg
                                hover:bg-orange-800">
                                             Do koszyka
                                         </a>
@@ -146,7 +142,7 @@
         let elements = document.querySelectorAll("[data-menu]");
         for (let i = 0; i < elements.length; i++) {
             let main = elements[i];
-            main.addEventListener("click", function () {
+            main.addEventListener("click", function() {
                 let element = main.parentElement.parentElement;
                 let andicators = main.querySelectorAll("svg");
                 let child = element.querySelector("#sect");

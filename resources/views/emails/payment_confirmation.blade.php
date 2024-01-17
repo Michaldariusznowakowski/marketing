@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dziękujemy za przesłanie zapytania</title>
+    <title>Potwierdzenie zamówienia</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
             margin: 0;
             padding: 0;
         }
@@ -20,24 +19,27 @@
             padding: 20px;
         }
 
-        h1 {
+        h2 {
             color: #333;
-            font-size: 24px;
-            margin-bottom: 20px;
         }
 
         p {
-            color: #666;
-            font-size: 16px;
-            line-height: 1.5;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>Dziękujemy za przesłanie zapytania</h1>
-        <p>Twoje zapytanie zostało przesłane do naszego działu obsługi klienta. Wkrótce otrzymasz odpowiedź.</p>
+        <h2>Poprawnie opłacono zamówienie!</h2>
+
+        <p>Szanowny/a {{ $order->imie }} {{ $order->nazwisko }},</p>
+
+        <p>Twoje zamówienie o numerze {{ $order->id }} zostało opłacone.</p>
+
+        <p>Wkrótce zamówienie zostanie wysłane.</p>
+
+        <p>Dziękujemy za zakupy!</p>
     </div>
 </body>
 

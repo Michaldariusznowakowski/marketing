@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Order;
 
-class OrderConfirmationMail extends Mailable
+class PaymentConfirmationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -23,8 +23,8 @@ class OrderConfirmationMail extends Mailable
 
     public function build()
     {
-        $this->subject('Potwierdzenie zamówienia');
+        $this->subject('Opłacono zamówienie');
         $this->to($this->order->email, $this->order->imie . ' ' . $this->order->nazwisko);
-        return $this->view('emails.order_confirmation');
+        return $this->view('emails.payment_confirmation');
     }
 }

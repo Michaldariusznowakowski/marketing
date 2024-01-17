@@ -19,12 +19,32 @@ class RatingController extends Controller
             $ratings_with_order_data[] = [
                 'id' => $rating->id,
                 'imie' => $order->imie,
+                'nazwisko' => $order->nazwisko,
+                'email' => $order->email,
                 'produkty' => json_decode($order->produkty),
                 'rating' => $rating->rating,
                 'comment' => $rating->comment,
             ];
         }
         return view('ratings.ratings', compact('ratings_with_order_data'));
+    }
+    public function adminShow()
+    {
+        $ratings = Rating::all();
+        $ratings_with_order_data = [];
+        foreach ($ratings as $rating) {
+            $order = Order::find($rating->order_id);
+            $ratings_with_order_data[] = [
+                'id' => $rating->id,
+                'imie' => $order->imie,
+                'nazwisko' => $order->nazwisko,
+                'email' => $order->email,
+                'produkty' => json_decode($order->produkty),
+                'rating' => $rating->rating,
+                'comment' => $rating->comment,
+            ];
+        }
+        return view('admin.ratings', compact('ratings_with_order_data'));
     }
     // get unique_access_token from get request
     public function showForm($unique_access_token)

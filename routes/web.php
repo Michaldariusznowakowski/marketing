@@ -4,9 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CookieController;
-use App\Http\Controllers\ImportCsvController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\ItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,9 +42,31 @@ Route::get('/cart/orders', [CartController::class, 'showOrders'])->name('orders'
 Route::post('/cart/orders/purge', [CartController::class, 'purge'])->name('purgeOrders');
 Route::get('/cookies/allow', [CookieController::class, 'allow'])->name('cookiesAllow');
 Route::get('/cookies/disallow', [CookieController::class, 'disallow'])->name('cookiesDisallow');
-Route::get('/importcsv', [ImportCsvController::class, 'show'])->name('import_csv');
-Route::post('/importcsv', [ImportCsvController::class, 'import'])->name('import_csv');
-Route::post('/importcsv/cols', [ImportCsvController::class, 'importWithCols'])->name('import_csv_cols');
-Route::get('/ratings', [RatingController::class, 'show'])->name('ratings');
-Route::get('/ratings/form/{unique_access_token}', [RatingController::class, 'showForm'])->name('ratingsForm');
-Route::post('/ratings/create', [RatingController::class, 'create'])->name('ratingsCreate');
+Route::get('/admin', function () {
+    if (Auth::check()) {
+        return view('admin.index');
+    } else {
+        return view('admin.login');
+    }
+})->name('admin.index');
+Route::get('/admin/logout', [UserController::class, 'logout'])->name('admin.logout');
+Route::post('/admin/login', [UserController::class, 'login'])->name('admin.login');
+Route::get('/admin/users', [UserController::class, 'users'])->name('admin.users')->middleware('admin');
+Route::post('/admin/users/add', [UserController::class, 'addUser'])->name('admin.users.add')->middleware('admin');
+Route::post('/admin/users/delete', [UserController::class, 'deleteUser'])->name('admin.users.delete')->middleware('admin');
+Route::post('/admin/users/updatePassword', [UserController::class, 'updatePassword'])->name('admin.users.updatePassword')->middleware('admin');
+Route::post('/admin/users/updateRole', [UserController::class, 'updateRole'])->name('admin.users.updateRole')->middleware('admin');
+Route::get('/admin/items', [ItemController::class, 'show'])->name('admin.items')->middleware('employee');
+Route::post('/admin/items/add', [ItemController::class, 'addItem'])->name('admin.items.add')->middleware('employee');
+Route::post('/admin/items/delete', [ItemController::class, 'deleteItem'])->name('admin.items.delete')->middleware('admin');
+Route::post('/admin/items/edit', [ItemController::class, 'updateItem'])->name('admin.items.update')->middleware('employee');
+Route::get('/admin/items/import', [ItemController::class, 'showImportForm'])->name('admin.items.import')->middleware('admin');
+Route::post('/admin/items/import', [ItemController::class, 'import'])->name('admin.items.importCsv')->middleware('admin');
+Route::post('/admin/items/import/cols', [ItemController::class, 'importCsvWithCols'])->name('admin.items.importCsvWithCols')->middleware('admin');
+Route::get('/admin/orders', [OrderController::class, 'adminOrders'])->name('admin.orders')->middleware('employee');
+Route::post('/admin/orders/updateStatus', [OrderController::class, 'updateOrderStatus'])->name('admin.orders.updateStatus')->middleware('employee');
+Route::get('/admin/ratings', [RatingController::class, 'adminShow'])->name('admin.ratings')->middleware('employee');
+Route::post('/admin/ratings/delete/{id}', [RatingController::class, 'delete'])->name('admin.ratings.delete')->middleware('admin');
+Route::get('/ratings', [RatingController::class, 'show'])->name('ratings')->middleware('employee');
+Route::get('/ratings/form/{unique_access_token}', [RatingController::class, 'showForm'])->name('ratingsForm')->middleware('admin');
+Route::post('/ratings/create', [RatingController::class, 'create'])->name('ratingsCreate')->middleware('admin');
