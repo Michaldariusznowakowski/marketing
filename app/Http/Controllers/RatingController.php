@@ -12,7 +12,7 @@ class RatingController extends Controller
 {
     public function show()
     {
-        $ratings = DB::table('ratings')->simplePaginate(10);
+        $ratings = Rating::all();
         $ratings_with_order_data = [];
         foreach ($ratings as $rating) {
             $order = Order::find($rating->order_id);
