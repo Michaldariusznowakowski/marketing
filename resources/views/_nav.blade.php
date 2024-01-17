@@ -1,3 +1,16 @@
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-2LPDRV1M63');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5371971414130697"
+    crossorigin="anonymous"></script>
 {{-- <nav class="navbar navbar-expand-lg navbar-light bg-light"> --}}
 {{--    <div class="container-fluid"> --}}
 {{--        <a class="navbar-brand" href="{{ route('index') }}">Kawka On-Line</a> --}}
