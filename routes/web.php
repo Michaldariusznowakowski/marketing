@@ -65,6 +65,8 @@ Route::post('/admin/items/import', [ItemController::class, 'import'])->name('adm
 Route::post('/admin/items/import/cols', [ItemController::class, 'importCsvWithCols'])->name('admin.items.importCsvWithCols')->middleware('admin');
 Route::get('/admin/orders', [OrderController::class, 'adminOrders'])->name('admin.orders')->middleware('employee');
 Route::post('/admin/orders/updateStatus', [OrderController::class, 'updateOrderStatus'])->name('admin.orders.updateStatus')->middleware('employee');
+Route::get('/admin/ratings', [RatingController::class, 'adminShow'])->name('admin.ratings')->middleware('employee');
+Route::get('/admin/ratings/delete/{id}', [RatingController::class, 'delete'])->name('admin.ratings.delete')->middleware('admin');
 Route::get('/ratings', [RatingController::class, 'show'])->name('ratings')->middleware('employee');
 Route::get('/ratings/form/{unique_access_token}', [RatingController::class, 'showForm'])->name('ratingsForm')->middleware('admin');
 Route::post('/ratings/create', [RatingController::class, 'create'])->name('ratingsCreate')->middleware('admin');

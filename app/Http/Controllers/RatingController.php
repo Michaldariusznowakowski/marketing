@@ -19,6 +19,8 @@ class RatingController extends Controller
             $ratings_with_order_data[] = [
                 'id' => $rating->id,
                 'imie' => $order->imie,
+                'nazwisko' => $order->nazwisko,
+                'email' => $order->email,
                 'produkty' => json_decode($order->produkty),
                 'rating' => $rating->rating,
                 'comment' => $rating->comment,

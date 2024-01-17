@@ -12,7 +12,7 @@
                 @endif
                 @if (Auth::user()->role == 'admin')
                     <a href="{{ route('admin.users') }}" class="hover:underline">Użytkownicy</a>
-                    <a href="{{ route('admin.comments') }}" class="hover:underline">Komentarze</a>
+                    <a href="{{ route('admin.ratings') }}" class="hover:underline">Komentarze</a>
                 @endif
             @else
                 <p> Zaloguj się aby zobaczyć panel administratora</p>
