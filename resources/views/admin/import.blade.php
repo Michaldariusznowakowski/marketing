@@ -1,25 +1,26 @@
 @extends('admin._show')
 @section('content')
-    <div class="flex justify-center items-center h-screen">
-        <form action="{{ route('admin.items.importCsv') }}" method="POST" enctype="multipart/form-data" class="w-1/2">
-            @csrf
-            <div class="mb-4">
-                <label for="file" class="text-gray-700">Import CSV</label>
-                <input type="file" name="file" class="form-control">
-            </div>
-            <div class="mb-4">
-                <label for="delimiter" class="text-gray-700">Delimiter</label>
-                <select name="separator" id="separator" class="form-control">
-                    <option value=";">;</option>
-                    <option value=",">,</option>
-                    <option value="\t">tab</option>
-                </select>
-            </div>
-            <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Import
-                CSV</button>
-        </form>
-    </div>
-
+    @if (isset($csv) == false && isset($file) == false)
+        <div class="flex justify-center items-center h-screen">
+            <form action="{{ route('admin.items.importCsv') }}" method="POST" enctype="multipart/form-data" class="w-1/2">
+                @csrf
+                <div class="mb-4">
+                    <label for="file" class="text-gray-700">Import CSV</label>
+                    <input type="file" name="file" class="form-control">
+                </div>
+                <div class="mb-4">
+                    <label for="delimiter" class="text-gray-700">Delimiter</label>
+                    <select name="separator" id="separator" class="form-control">
+                        <option value=";">;</option>
+                        <option value=",">,</option>
+                        <option value="\t">tab</option>
+                    </select>
+                </div>
+                <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Import
+                    CSV</button>
+            </form>
+        </div>
+    @endif
     @if (isset($csv) && isset($file))
         <div class="flex justify-center items-center h-screen">
             <form action="{{ route('admin.items.importCsvWithCols') }}" method="POST" enctype="multipart/form-data"

@@ -137,6 +137,7 @@ class ItemController extends Controller
             $coffee->nazwa = $csv[$i][$name];
             $coffee->cena = $csv[$i][$price];
             $coffee->opis = $csv[$i][$desc];
+            $coffee->ilosc = 0;
             $coffee->img = 'items/placeholder.png';
             $coffee->save();
         }

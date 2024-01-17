@@ -62,7 +62,7 @@ Route::post('/admin/items/delete', [ItemController::class, 'deleteItem'])->name(
 Route::post('/admin/items/edit', [ItemController::class, 'updateItem'])->name('admin.items.update')->middleware('employee');
 Route::get('/admin/items/import', [ItemController::class, 'showImportForm'])->name('admin.items.import')->middleware('admin');
 Route::post('/admin/items/import', [ItemController::class, 'import'])->name('admin.items.importCsv')->middleware('admin');
-Route::post('/admin/items/import/cols', [ItemController::class, 'importCsvWithCols'])->name('admin.items.importCsvWithCols')->middleware('admin');
+Route::post('/admin/items/import/cols', [ItemController::class, 'importWithCols'])->name('admin.items.importWithCols')->middleware('admin');
 Route::get('/admin/orders', [OrderController::class, 'adminOrders'])->name('admin.orders')->middleware('employee');
 Route::post('/admin/orders/updateStatus', [OrderController::class, 'updateOrderStatus'])->name('admin.orders.updateStatus')->middleware('employee');
 Route::get('/admin/ratings', [RatingController::class, 'adminShow'])->name('admin.ratings')->middleware('employee');
