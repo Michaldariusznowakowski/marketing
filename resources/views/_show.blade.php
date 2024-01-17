@@ -27,6 +27,7 @@
     <div class="flex flex-col h-screen">
         @include('_popup')
         @include('_nav')
+        @include('_info')
         <div class="mt-10 flex-grow">
             @yield('content')
         </div>

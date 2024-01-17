@@ -1,11 +1,5 @@
 @extends('admin._show')
 @section('content')
-    @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-    @if (session('error'))
-        <div class="alert alert-danger">{{ session('error') }}</div>
-    @endif
     @if (count($ratings_with_order_data) === 0)
         <div class="flex justify-center items-center h-64">
             <p class="text-gray-500 text-lg">Brak komentarzy</p>

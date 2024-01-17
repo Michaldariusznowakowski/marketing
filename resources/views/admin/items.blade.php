@@ -1,12 +1,5 @@
 @extends('admin._show')
 @section('content')
-    {{-- if admin --}}
-    @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-    @if (session('error'))
-        <div class="alert alert-danger">{{ session('error') }}</div>
-    @endif
     @if (Auth::user()->role == 'admin')
 
         <div class="flex items-center justify-center">
@@ -48,14 +41,15 @@
     </div>
     <div class="flex flex-wrap justify-center" p-4>
         @foreach ($items as $item)
-            <div class="item bg-gray-200 p-4 mb-4 mx-4">
-                <div class="w-32 h-32">
-                    <img class="w-full h-full object-contain" src="{{ asset('storage/' . $item->img) }}"
-                        alt="{{ $item->nazwa }}" />
-                </div>
+            <div class="item bg-white rounded-md shadow-md p-4 mb-4 mr-4">
+
                 <form action="{{ route('admin.items.update') }}" method="POST" enctype="multipart/form-data"
                     class="flex flex-col items-center">
                     @csrf
+                    <div class="flex flex-col mb-4">
+                        <img class="w-64 h-64 object-cover rounded-md" src="{{ asset('storage/' . $item->img) }}"
+                            alt="{{ $item->nazwa }}" />
+                    </div>
                     <input type="hidden" name="id" value="{{ $item->id }}">
                     <div class="flex flex-col mb-4">
                         <label for="nazwa">Nazwa</label>
