@@ -112,24 +112,27 @@
                             <a href="{{ route('product', ['coffeeId' => $randomCoffee->id]) }}" class="flex flex-col">
                                 <div class="relative h-72 overflow-hidden">
                                     <img class="absolute inset-0 w-full h-full object-cover"
-                                        src="../{{ asset('storage/' . $randomCoffee->img) }}" </div>
-                                    <div class="flex flex-col justify-center flex-1 p-2 text-center">
-                                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-                                            {{ $randomCoffee->nazwa }}
-                                        </h5>
-                                        <p class="mb-1 text-gray-700 font-bold text-lg">Cena: {{ $randomCoffee->cena }}
-                                            zł</p>
-                                        <p class="text-sm text-gray-500">Najniższa cena z 30 dni przed
-                                            obniżką: {{ $randomCoffee->cena }} zł</p>
-                                        <div class="text-center">
-                                            <a href="{{ route('addToCart', ['coffeeId' => $coffee->id]) }}"
-                                                class="@if ($randomCoffee->ilosc < 1) disabled @endif mt-4 inline-flex px-3 py-2 text-sm font-medium text-white bg-orange-700 rounded-lg
-                               hover:bg-orange-800">
-                                                Do koszyka
-                                            </a>
+                                        src="{{ asset('storage/' . $randomCoffee->img) }}"
+                                        alt="{{ $randomCoffee->nazwa }}" />
+                                </div>
 
-                                        </div>
+                                <div class="flex flex-col justify-center flex-1 p-2 text-center">
+                                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
+                                        {{ $randomCoffee->nazwa }}
+                                    </h5>
+                                    <p class="mb-1 text-gray-700 font-bold text-lg">Cena: {{ $randomCoffee->cena }}
+                                        zł</p>
+                                    <p class="text-sm text-gray-500">Najniższa cena z 30 dni przed
+                                        obniżką: {{ $randomCoffee->cena }} zł</p>
+                                    <div class="text-center">
+                                        <a href="{{ route('addToCart', ['coffeeId' => $coffee->id]) }}"
+                                            class="@if ($randomCoffee->ilosc < 1) disabled @endif mt-4 inline-flex px-3 py-2 text-sm font-medium text-white bg-orange-700 rounded-lg
+                               hover:bg-orange-800">
+                                            Do koszyka
+                                        </a>
+
                                     </div>
+                                </div>
                             </a>
                         </div>
                     @endif
