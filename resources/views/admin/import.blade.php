@@ -23,7 +23,7 @@
     @endif
     @if (isset($csv) && isset($file))
         <div class="flex justify-center items-center h-screen">
-            <form action="{{ route('admin.items.importCsvWithCols') }}" method="POST" enctype="multipart/form-data"
+            <form action="{{ route('admin.items.importWithCols') }}" method="POST" enctype="multipart/form-data"
                 class="w-1/2">
                 @csrf
                 <div class="mb-4">
